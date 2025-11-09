@@ -23,19 +23,20 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: 048856406399.dkr.ecr.ap-south-1.amazonaws.com/webapp
+        image: 048856406399.dkr.ecr.ap-south-1.amazonaws.com/webapp:latest
         ports:
         - containerPort: 80
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: webapp-service
+  namespace: webapp
 spec:
   selector:
-    app.kubernetes.io/name: webapp
+    app: webapp
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 80
+  type: NodePort
